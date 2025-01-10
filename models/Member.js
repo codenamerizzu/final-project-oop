@@ -15,11 +15,11 @@ class Member {
     return { data, error };
   }
 
-  static async removeMember(id) {
+  static async removeMember(memberId) {
     const { data, error } = await supabase
     .from('members')
     .delete()
-    .eq('id', id);
+    .eq('id', memberId);
     return { data, error }; 
   }
 }

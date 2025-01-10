@@ -15,9 +15,9 @@ export async function POST(req) {
 }
 
 export async function DELETE(req) {
-  const { id } = await req.json();
+  const { memberId } = await req.json();
 
-  const { data, error } = await Member.removeMember(id);
+  const { data, error } = await Member.removeMember(memberId);
 
   if (error) {
     return new Response(JSON.stringify({ error: error.message }), { status: 500 });

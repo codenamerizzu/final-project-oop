@@ -19,9 +19,9 @@ const AddBook = () => {
     if (response.ok) {
       setTitle('');
       setAuthor('');
-      alert('Book added successfully!');
+      alert('Berhasil menambahkan buku!');
     } else {
-      alert('Failed to add book.');
+      alert('Gagal menamahkan buku!');
     }
   };
 

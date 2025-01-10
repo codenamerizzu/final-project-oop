@@ -19,9 +19,9 @@ const AddMember = () => {
     if (response.ok) {
       setName('');
       setEmail('');
-      alert('Member added successfully!');
+      alert('Berhasil menambahkan member!');
     } else {
-      alert('Failed to add member.');
+      alert('Gagal menambahkan member!');
     }
   };
 

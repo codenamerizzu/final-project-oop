@@ -33,12 +33,12 @@ const AddLoan = () => {
     });
 
     if (response.ok) {
-      alert('Loan added successfully!');
+      alert('Berhasil melakukan peminjaman buku!');
       setSelectedBookId('');
       setSelectedMemberId('');
       setLoanDate('');
     } else {
-      alert('Failed to add loan.');
+      alert('Gagal melakukan peminjaman buku!');
     }
   };
 

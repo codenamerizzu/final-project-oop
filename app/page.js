@@ -15,7 +15,7 @@ const Home = () => {
     const fetchData = async () => {
       const { data: booksData } = await supabase.from('books').select('*');
       const { data: membersData } = await supabase.from('members').select('*');
-      const { data: loanData } = await supabase.from('loans').select(`id, books(title), members(name)`);
+      const { data: loanData } = await supabase.from('loans').select(`id, loan_date, books(title), members(name)`);
 
       setBooks(booksData);
       setMembers(membersData);
@@ -24,6 +24,11 @@ const Home = () => {
 
     fetchData();
   }, []);
+
+  const formatDate = (date) => {
+    const [ year, month, day ] = date.split("-");
+    return(`${day}-${month}-${year}`)
+  }
 
   const handleDeleteBook = async (bookId) => {
     const response = await fetch('/api/books', {
@@ -146,8 +151,8 @@ const Home = () => {
           <thead>
             <tr className='text-sm uppercase opacity-70 text-left'>
               <th className='w-1/12 font-light py-2 px-4'>ID</th>
-              <th className='w-6/12 font-light py-2 px-4'>Nama</th>
-              <th className='w-4/12 font-light py-2 px-4'>Email</th>
+              <th className='w-5/12 font-light py-2 px-4'>Nama</th>
+              <th className='w-5/12 font-light py-2 px-4'>Email</th>
               <th className='w-1/12 font-light py-2 px-4'>Action</th>
             </tr>
           </thead>
@@ -185,8 +190,9 @@ const Home = () => {
           <thead>
             <tr className='text-sm uppercase opacity-70 text-left'>
               <th className='w-1/12 font-light py-2 px-4'>ID</th>
-              <th className='w-6/12 font-light py-2 px-4'>Nama peminjam</th>
-              <th className='w-4/12 font-light py-2 px-4'>Judul buku</th>
+              <th className='w-5/12 font-light py-2 px-4'>Nama peminjam</th>
+              <th className='w-3/12 font-light py-2 px-4'>Judul buku</th>
+              <th className='w-2/12 font-light py-2 px-4'>Tanggal pinjam</th>
               <th className='w-1/12 font-light py-2 px-4'>Action</th>
             </tr>
           </thead>
@@ -203,6 +209,7 @@ const Home = () => {
                   <td className='border-t border-slate-400 py-2 px-4'>{loan.id}</td>
                   <td className='border-t border-slate-400 py-2 px-4'>{loan.members.name}</td>
                   <td className='border-t border-slate-400 py-2 px-4'>{loan.books.title}</td>
+                  <td className='border-t border-slate-400 py-2 px-4'>{`${formatDate(loan.loan_date)}`}</td>
                   <td className='border-t border-slate-400 py-2 px-4'>
                     <button 
                       onClick={() => handleReturnBook(loan.id)}
